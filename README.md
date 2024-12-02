@@ -46,6 +46,43 @@ This vault implements a recursive borrowing strategy to amplify your sUSDe yield
 4. The new sUSDe is re-supplied to Aave
 5. Steps 2-4 are repeated until reaching target leverage
 
+## Contract Flow Overview:
+
+Users can deposit sUSDe tokens into the vault
+The governance can manage leveraged positions on Aave using flash loans
+Users can withdraw their share of assets
+
+## Deposit Flow:
+
+![image](https://github.com/user-attachments/assets/975dbe86-e7cc-4e49-b30b-d14cd59545b7)
+
+1. User approves vault to spend their sUSDe tokens
+2. Vault pulls sUSDe tokens from user
+3. Calculates shares based on total assets
+4. Mints vault tokens (shares) to receiver
+
+## Rebalance Flow (Governance Only):
+![image](https://github.com/user-attachments/assets/9d558721-863f-4b6e-9312-6f1601b4aecc)
+
+1. Takes WETH flash loan
+2. Swaps WETH → USDT → sUSDe
+3. Supplies sUSDe to Aave
+4. Borrows WETH from Aave
+5. Repays flash loan with borrowed WETH
+
+## Withdraw Flow:
+
+1. Burns user's vault tokens (shares)
+2. Calculates assets to return based on shares
+3. Swaps sUSDe to WETH with slippage protection
+4. Transfers WETH to receiver
+
+## withdrawFromAave Flow (Governance Only):
+The withdrawFromAave function is typically used in scenarios where the vault needs to reduce its position on Aave, either to return assets to users or to adjust its leverage. It ensures that the vault can manage its assets efficiently while maintaining the necessary liquidity and leverage levels.
+1. Repay Borrowed WETH
+2. Withdraw sUSDe from Aave
+
+
 ## Vault APY calculation
 
 ## Understanding Leverage from LTV
@@ -82,38 +119,3 @@ Components:
 - Target Leverage: 3x
 - WETH Borrow APY: 2.69%
 ```
-
-
-## Contract Flow Overview:
-
-Users can deposit sUSDe tokens into the vault
-The governance can manage leveraged positions on Aave using flash loans
-Users can withdraw their share of assets
-
-Deposit Flow:
-
-1. User approves vault to spend their sUSDe tokens
-2. Vault transfers sUSDe tokens from user
-3. Calculates shares based on total assets
-4. Mints vault tokens (shares) to receiver
-
-Rebalance Flow (Governance Only):
-
-1. Takes WETH flash loan
-2. Swaps WETH → USDT → sUSDe
-3. Supplies sUSDe to Aave
-4. Borrows WETH from Aave
-5. Repays flash loan with borrowed WETH
-
-Withdraw Flow:
-
-1. Burns user's vault tokens (shares)
-2. Calculates assets to return based on shares
-3. Swaps sUSDe to WETH with slippage protection
-4. Transfers WETH to receiver
-
-withdrawFromAave Flow (Governance Only):
-The withdrawFromAave function is typically used in scenarios where the vault needs to reduce its position on Aave, either to return assets to users or to adjust its leverage. It ensures that the vault can manage its assets efficiently while maintaining the necessary liquidity and leverage levels.
-1. Repay Borrowed WETH
-2. Withdraw sUSDe from Aave
-
