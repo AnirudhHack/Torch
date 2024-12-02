@@ -7,20 +7,32 @@ Torch is a protocol that amplifies sUSDe yields through intelligent leverage str
 
 ## 🏆 Hackathon Tracks inegration
 
+The project is eligible for following track as it increases the ethena's sUSDe holders apy from 29 % to 81 % using recursive borrowing strategy. 
 1. **Most Innovative Use of sUSDe Rewards** 
-   - The project is eligible for this track as it increases the sUSDe holders apy from 29 % to 81 % using recursive borrowing strategy. 
-
 
 2. **Best Overall Application** 
-   - Novel use of USDe in DeFi
-   - Production-ready architecture
-   - Clear value proposition
 
 Here is the sUSDe integration (below integration shows that a sUSDe vault is built that increases sUSDe position APY)
+SO below is the vault implementation:
+https://github.com/AnirudhHack/Torch/blob/e73dbb0e9f099a828738aeb5e4ad672c73eaa9eb/smartContracts/contracts/Vault.sol#L17
+  ```solidity
+  // Vault.sol
+  contract SUSDEVault is IERC4626 {
+      address public immutable asset; // sUSDe
+      // Amplifies sUSDe yield from 29% to 81.62% APY
+  }
+  ```
+
+Here the underly asset in vault is sUSDe:
+https://github.com/AnirudhHack/Torch/blob/e73dbb0e9f099a828738aeb5e4ad672c73eaa9eb/smartContracts/contracts/Vault.sol#L21
+https://github.com/AnirudhHack/Torch/blob/c98060ec044837887abc86ead021a600ff20ea2b/smartContracts/test/Lock.js#L15
 
 
 ## Dapp Deployment link
 https://torch-dapp.vercel.app/
+
+## Video Demo
+https://drive.google.com/file/d/1ES5or3WSMR4jhV_tbXidfCRf7XLWBPkR/view?usp=sharing
 
 ## Vault Strategy
 This vault implements a recursive borrowing strategy to amplify your sUSDe yields through Aave. Here is how it works:
