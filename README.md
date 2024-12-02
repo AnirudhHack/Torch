@@ -61,7 +61,7 @@ Users can withdraw their share of assets
 3. Calculates shares based on total assets
 4. Mints vault tokens (shares) to receiver
 
-## Rebalance Flow (Governance Only):
+## Rebalance Flow (Only Governance can execute):
 ![image](https://github.com/user-attachments/assets/9d558721-863f-4b6e-9312-6f1601b4aecc)
 
 1. Takes WETH flash loan
@@ -77,7 +77,7 @@ Users can withdraw their share of assets
 3. Swaps sUSDe to WETH with slippage protection
 4. Transfers WETH to receiver
 
-## withdrawFromAave Flow (Governance Only):
+## withdrawFromAave Flow (Only Governance can execute):
 The withdrawFromAave function is typically used in scenarios where the vault needs to reduce its position on Aave, either to return assets to users or to adjust its leverage. It ensures that the vault can manage its assets efficiently while maintaining the necessary liquidity and leverage levels.
 1. Repay Borrowed WETH
 2. Withdraw sUSDe from Aave
