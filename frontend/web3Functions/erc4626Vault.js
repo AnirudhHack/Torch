@@ -67,7 +67,7 @@ export async function approveWeth(signer, toAddress, amount) {
 
 /////////// GET FUNCTIONS 
 
-export async function getTvlOfWstheth(provider) {
+export async function getTvlOfSUSDE(provider) {
   try {
       // Create a new instance of the contract
       const contract = new ethers.Contract(ethAddress.susdeVault, erc4626vaultAbi, provider);
@@ -75,12 +75,12 @@ export async function getTvlOfWstheth(provider) {
       const bal = await contract.getVaultsActualBalance();
       return ethers.utils.formatEther(bal.toString())
   } catch (error) {
-    console.error('Error getTvlOfWstheth: ', error);
+    console.error('Error getTvlOfSUSDE: ', error);
     return "0"
   }
 }
 
-export async function wstethVaultSharesOf(provider, address) {
+export async function susdeVaultSharesOf(provider, address) {
   try {
       // Create a new instance of the contract
       const contract = new ethers.Contract(ethAddress.susdeVault, erc4626vaultAbi, provider);
@@ -88,7 +88,7 @@ export async function wstethVaultSharesOf(provider, address) {
       const bal = await contract.balanceOf(address);
       return ethers.utils.formatEther(bal.toString())
   } catch (error) {
-    console.error('Error wstethVaultSharesOf: ', error);
+    console.error('Error susdeVaultSharesOf: ', error);
     return "0"
   }
 }

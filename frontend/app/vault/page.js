@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {Nav} from "@/components/component/nav";
 // import { useSearchParams } from 'next/navigation'
-import {deposit, withdraw, wethAllowance, wethbalance, approveWeth, getTvlOfWstheth} from "../../web3Functions/erc4626Vault"
+import {susdeVaultSharesOf, deposit, withdraw, wethAllowance, wethbalance, approveWeth, getTvlOfSUSDE} from "../../web3Functions/erc4626Vault"
 import {getConnectedWalletAddress} from "../../web3Functions/wallet"
 import React, { Suspense, useEffect, useState } from "react";
 import {ethers} from "ethers"
@@ -146,7 +146,7 @@ export default function Game() {
       const signer = await provider.getSigner();
       
       const address = await signer.getAddress();
-      const val = await getTvlOfWstheth(provider)
+      const val = await getTvlOfSUSDE(provider)
       console.log("TVL ", val )
       setTVL(val)
     }
@@ -156,6 +156,25 @@ export default function Game() {
     const intervalId = setInterval(getTVL, 3000); // Call getTVL every 3 seconds
   
     return () => clearInterval(intervalId); // Cleanup function to clear the interval
+  }, []);
+
+  const [vaultShares, setVaultShares] = React.useState("0");
+
+  React.useEffect(() => {
+    const checkVaultShares = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = await provider.getSigner();
+      
+      const address = await signer.getAddress();
+      const shares = await susdeVaultSharesOf(provider, address);
+      setVaultShares(shares);
+    }
+
+    checkVaultShares(); // Initial check
+
+    const intervalId = setInterval(checkVaultShares, 3000); // Check every 3 seconds
+
+    return () => clearInterval(intervalId); // Cleanup
   }, []);
 
   return (
@@ -195,6 +214,10 @@ export default function Game() {
                           <div>
                             <p className="text-muted-foreground">Your Balance</p>
                             <p className="text-2xl font-bold">{parseFloat(wethBal).toFixed(2)} sUSDe</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">Your Vault Shares</p>
+                            <p className="text-2xl font-bold">{parseFloat(vaultShares).toFixed(2)} sUSDeV</p>
                           </div>
                           <div className="flex gap-2">
                             <Input type="number" placeholder="Amount" 
