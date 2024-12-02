@@ -75,7 +75,7 @@ export default function Game() {
 
       const success = await withdraw(signer, amount);
       if (success) {
-        alert('deposited sucessfully');
+        alert('Withdrawn sucessfully');
       } else {
         alert('Failed to withdraw');
       }
