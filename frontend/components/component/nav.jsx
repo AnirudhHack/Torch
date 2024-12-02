@@ -15,7 +15,7 @@ export function Nav() {
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link
             style={{marginRight: "8px"}}
-            href="https://github.com/AnirudhHack"
+            href="https://github.com/AnirudhHack/Torch/blob/master/README.md"
             className="text-sm font-medium hover:underline underline-offset-4"
             prefetch={false}>
             Doc
