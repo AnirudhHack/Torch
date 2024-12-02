@@ -129,14 +129,8 @@ contract SUSDEVault is FlashLoanSimpleReceiverBase, ERC20, IERC4626, ReentrancyG
 
         _burn(owner, shares);
 
-        uint returnAmount = uniswapV3Swap(SellInfo(
-            asset,
-            address(WETH9),
-            fee,
-            0,
-            assets
-        ));
-        WETH9.transfer(receiver, returnAmount);
+        // transfer the sUSDe to user
+        ERC20(asset).transfer(receiver, assets);
 
         emit Withdraw(msg.sender, receiver, owner, assets, shares);
     }
