@@ -84,30 +84,36 @@ Components:
 ```
 
 
+## Contract Flow Overview:
 
+Users can deposit sUSDe tokens into the vault
+The governance can manage leveraged positions on Aave using flash loans
+Users can withdraw their share of assets
 
+Deposit Flow:
 
-## Contract Functionality Explanation
+1. User approves vault to spend their sUSDe tokens
+2. Vault transfers sUSDe tokens from user
+3. Calculates shares based on total assets
+4. Mints vault tokens (shares) to receiver
 
+Rebalance Flow (Governance Only):
 
-### `deposit`
+1. Takes WETH flash loan
+2. Swaps WETH → USDT → sUSDe
+3. Supplies sUSDe to Aave
+4. Borrows WETH from Aave
+5. Repays flash loan with borrowed WETH
 
-Allows users to deposit ETH into the vault. The ETH is wrapped as WETH, swapped to the vault's asset using Uniswap V3, and converted to vault shares. The shares are then minted and transferred to the receiver address.
+Withdraw Flow:
 
-### `withdraw`
+1. Burns user's vault tokens (shares)
+2. Calculates assets to return based on shares
+3. Swaps sUSDe to WETH with slippage protection
+4. Transfers WETH to receiver
 
-Allows users to withdraw ETH by burning their vault shares. The function converts the shares back to the asset, swaps the asset to ETH using Uniswap V3, and transfers the ETH to the receiver address.
-
-### `rebalance`
-
-Rebalances the vault by supplying assets to Aave and borrowing additional assets. This function handles token swaps and ensures the vault's balance is adjusted according to the new strategy.
-
-### `executeOperation`
-
-Handles flash loan operations. It decodes the action type and parameters, performs the corresponding financial operation (rebalance, Withdraw from aave), and repays the flash loan with interest.
-
-### `callVaultAction`
-
-Triggers a flash loan from Aave and executes a specified vault action based on the provided parameters. This function is only callable by the governance address.
-
+withdrawFromAave Flow (Governance Only):
+The withdrawFromAave function is typically used in scenarios where the vault needs to reduce its position on Aave, either to return assets to users or to adjust its leverage. It ensures that the vault can manage its assets efficiently while maintaining the necessary liquidity and leverage levels.
+1. Repay Borrowed WETH
+2. Withdraw sUSDe from Aave
 
