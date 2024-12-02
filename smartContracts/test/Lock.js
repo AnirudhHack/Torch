@@ -29,53 +29,9 @@ describe("SUSDEVault", function () {
     user = await accounts[0].getAddress();
   })
 
-  // describe("deposit", function () {
-  //   it("Genesis deposit", async function () {
-  //     let amount = ethers.utils.parseEther("0.1");
 
-  //     let wethContract = await hre.ethers.getContractAt("IWETH9", weth);
-  //     await wethContract.deposit({value: amount})
 
-  //     await wethContract.approve(vault.address, amount)
-      
-  //     let assetContract = await hre.ethers.getContractAt("IERC20", asset);
-  //     const balBefore = await assetContract.balanceOf(vault.address)
-
-  //     console.log("balBefore : ", balBefore.toString())
-          
-  //     const tx = await vault.connect(accounts[0]).deposit(amount.toString(), user, {gasLimit: 10000000});
-  //     await tx.wait();
-
-  //     const balAfter = await assetContract.balanceOf(vault.address)
-  //     console.log("balAfter : ", balAfter.toString())
-
-  //     const shares = await vault.balanceOf(user);
-  //     console.log("Share bal : ", shares.toString())
-
-  //     const totals = await vault.totalSupply()
-  //     const totalAssets = await vault.totalAssets()
-  //     const coll = await vault.getCollateralAssetBalance()
-  //     const price = await vault.getAssetPriceFromAave(asset)
-  //     console.log("console ", totals.toString(), totalAssets.toString(), coll.toString(), price[0].toString(), price[1].toString() )
-
-  //     const tx1 = await vault.connect(accounts[0]).withdraw(shares.toString(), user, user, {gasLimit: 10000000});
-  //     await tx1.wait();
-      
-  //     const sharesAfter = await vault.balanceOf(user);
-  //     console.log("Share bal after withdraw : ", sharesAfter.toString())
-
-      
-  //     const UserbalAfter = await wethContract.balanceOf(user)
-  //     console.log("UserbalAfter : ", UserbalAfter.toString())
-        
-  //     // expect(ethers.utils.formatEther(borrowedAmount[2].toString())).to.equal("2.0");
-  //     // expect(await stEthVault.balanceOf(user)).to.equal(amountWithoutFee);   
-
-  //   });
-
-  // });
-
-  describe("rebalance", function () {
+  describe("deposit and rebalance", function () {
     it("rebalance", async function () {
       let amount = ethers.utils.parseEther("0.32873");
 
@@ -170,3 +126,49 @@ describe("SUSDEVault", function () {
 // supply cap = 68719476735
 // 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 
 // 0x9d39a5de30e57443bff2a8307a4256c8797a3497
+
+  // describe("deposit", function () {
+  //   it("Genesis deposit", async function () {
+  //     let amount = ethers.utils.parseEther("0.1");
+
+  //     let wethContract = await hre.ethers.getContractAt("IWETH9", weth);
+  //     await wethContract.deposit({value: amount})
+
+  //     await wethContract.approve(vault.address, amount)
+      
+  //     let assetContract = await hre.ethers.getContractAt("IERC20", asset);
+  //     const balBefore = await assetContract.balanceOf(vault.address)
+
+  //     console.log("balBefore : ", balBefore.toString())
+          
+  //     const tx = await vault.connect(accounts[0]).deposit(amount.toString(), user, {gasLimit: 10000000});
+  //     await tx.wait();
+
+  //     const balAfter = await assetContract.balanceOf(vault.address)
+  //     console.log("balAfter : ", balAfter.toString())
+
+  //     const shares = await vault.balanceOf(user);
+  //     console.log("Share bal : ", shares.toString())
+
+  //     const totals = await vault.totalSupply()
+  //     const totalAssets = await vault.totalAssets()
+  //     const coll = await vault.getCollateralAssetBalance()
+  //     const price = await vault.getAssetPriceFromAave(asset)
+  //     console.log("console ", totals.toString(), totalAssets.toString(), coll.toString(), price[0].toString(), price[1].toString() )
+
+  //     const tx1 = await vault.connect(accounts[0]).withdraw(shares.toString(), user, user, {gasLimit: 10000000});
+  //     await tx1.wait();
+      
+  //     const sharesAfter = await vault.balanceOf(user);
+  //     console.log("Share bal after withdraw : ", sharesAfter.toString())
+
+      
+  //     const UserbalAfter = await wethContract.balanceOf(user)
+  //     console.log("UserbalAfter : ", UserbalAfter.toString())
+        
+  //     // expect(ethers.utils.formatEther(borrowedAmount[2].toString())).to.equal("2.0");
+  //     // expect(await stEthVault.balanceOf(user)).to.equal(amountWithoutFee);   
+
+  //   });
+
+  // });
